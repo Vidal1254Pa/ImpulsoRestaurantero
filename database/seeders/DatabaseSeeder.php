@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $roles = [
             ['name' => 'SUPERADMIN ADMIN', 'id' => 1],
-            ['name' => 'VENDEDOR', 'id' => 2],
+            ['name' => 'ADMIN', 'id' => 2],
+            ['name' => 'VENDEDOR', 'id' => 3],
         ];
 
         foreach ($roles as $role) {
