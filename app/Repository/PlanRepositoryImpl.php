@@ -25,6 +25,13 @@ class PlanRepositoryImpl implements IPlanRepository
         return $this->_plan->find($id);
     }
 
+    public function getProductsByPlanId(int $plan_id): Collection
+    {
+        return $this->_plan->find($plan_id)->select('id', 'name', 'description', 'price')->with(['products' => function ($query) {
+            $query->select('id', 'name');
+        }])->get();
+    }
+
     public function create(array $data)
     {
         return $this->_plan->create([

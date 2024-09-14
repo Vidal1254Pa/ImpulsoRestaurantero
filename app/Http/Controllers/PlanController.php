@@ -31,4 +31,9 @@ class PlanController extends Controller
         $this->_planService->addProducts($id, $data);
         return response()->json(['message' => 'Products added to plan successfully'], 200);
     }
+
+    public function getProductsByPlanId($id)
+    {
+        return response()->json($this->_planService->getProductsByPlanId($id), 200);
+    }
 }

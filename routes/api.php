@@ -17,6 +17,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/plan', [PlanController::class, 'store']);
     Route::get('/plan', [PlanController::class, 'index']);
     Route::post('/plan/{id:int}/products', [PlanController::class, 'addProducts']);
+    Route::get('/plan/{id:int}/products', [PlanController::class, 'getProductsByPlanId']);
 
     /* PRODUCTS */
     Route::post('/product', [ProductController::class, 'store']);

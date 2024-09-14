@@ -9,6 +9,7 @@ interface IPlanRepository
 {
     public function all(): Collection;
     public function find($id): ?Plan;
+    public function getProductsByPlanId(int $plan_id): Collection;
     public function create(array $data);
     public function update($id, array $data);
     public function delete($id);

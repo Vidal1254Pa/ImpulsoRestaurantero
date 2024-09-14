@@ -17,4 +17,5 @@ class ProductsPlan extends Model
         'product_id',
         'plan_id',
     ];
+    
 }

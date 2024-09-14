@@ -75,4 +75,9 @@ class PlanService
         }
         return $instance;
     }
+    public function getProductsByPlanId($id)
+    {
+        $this->find($id);
+        return $this->_planRepository->getProductsByPlanId($id);
+    }
 }
