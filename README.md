@@ -6,3 +6,6 @@
 
 ## Ejecutar las migraciones
     php artisan migrate:refresh --seed
+
+## ejecutar el jwt
+    php artisan jwt:secret
