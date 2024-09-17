@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::post('/refresh', [AuthController::class, 'refresh']);
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('/user/admin', [AdminController::class, 'store']);
+    /* TODO: cambiar el nombre de la ruta */
+    Route::post('/user', [UserController::class, 'store']);
+    Route::put('/user/{id:int}/plan', [PlanController::class, 'assignPlanToUser']);
 
 
     /* PLANS */

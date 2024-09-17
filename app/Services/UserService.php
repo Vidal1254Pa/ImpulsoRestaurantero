@@ -32,4 +32,12 @@ class UserService
             throw new AuthenticationException("No tienes permisos para realizar esta acción");
         }
     }
+    public function assignPlan($userId, $planId)
+    {
+        if (AuthCredentials::userIsSuperAdmin()) {
+            $this->_userRepository->assignPlanToUser($userId, $planId);
+        } else {
+            throw new AuthenticationException("No tienes permisos para realizar esta acción");
+        }
+    }
 }

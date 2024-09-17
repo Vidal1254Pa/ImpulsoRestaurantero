@@ -20,6 +20,8 @@ class Plan extends Model
         'price',
     ];
 
+    protected $hidden = ['pivot'];
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'products_plans', 'plan_id', 'product_id');
