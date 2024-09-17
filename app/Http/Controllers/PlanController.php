@@ -36,4 +36,11 @@ class PlanController extends Controller
     {
         return response()->json($this->_planService->getProductsByPlanId($id), 200);
     }
+
+    public function assignPlanToUser(Request $request, $id)
+    {
+        $data = $request->all();
+        $this->_planService->assignPlanToUser($id, $data);
+        return response()->json(['message' => 'Plan assigned to user successfully'], 200);
+    }
 }

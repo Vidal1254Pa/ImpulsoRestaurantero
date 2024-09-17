@@ -9,6 +9,11 @@ class AuthCredentials
         return auth('api')->user();
     }
 
+    public static function getCredentialsUserName()
+    {
+        return auth('api')->user()->name;
+    }
+
     public static function getCredentialsUserId()
     {
         return auth('api')->user()->id;

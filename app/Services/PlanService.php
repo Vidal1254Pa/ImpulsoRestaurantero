@@ -14,10 +14,12 @@ class PlanService
 {
     private IPlanRepository $_planRepository;
     private ProductService $_productService;
-    public function __construct(IPlanRepository $planRepository, ProductService $productService)
+    private UserService $_userService;
+    public function __construct(IPlanRepository $planRepository, ProductService $productService, UserService $userService)
     {
         $this->_planRepository = $planRepository;
         $this->_productService = $productService;
+        $this->_userService = $userService;
     }
 
     public function create(array $data)
@@ -79,5 +81,18 @@ class PlanService
     {
         $this->find($id);
         return $this->_planRepository->getProductsByPlanId($id);
+    }
+
+    public function assignPlanToUser($id, array $data)
+    {
+        if (AuthCredentials::userIsSuperAdmin()) {
+            Validator::make($data, [
+                'plan_id' => 'required|integer',
+            ])->validate();
+            $this->find($id);
+            $this->_userService->assignPlan($id, $data['plan_id']);
+        } else {
+            throw new AuthenticationException("No tienes permisos para realizar esta acción");
+        }
     }
 }
