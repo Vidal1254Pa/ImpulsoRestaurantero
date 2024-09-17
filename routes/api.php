@@ -10,7 +10,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/refresh', [AuthController::class, 'refresh']);
 
 Route::middleware('auth:api')->group(function () {
-    /* TODO: cambiar el nombre de la ruta */
     Route::post('/user', [UserController::class, 'store']);
     Route::put('/user/{id:int}/plan', [PlanController::class, 'assignPlanToUser']);
 
