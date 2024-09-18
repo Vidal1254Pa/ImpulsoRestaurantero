@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Interfaces\IPlanRepository;
 use App\Interfaces\IProductRepository;
+use App\Interfaces\IProspectRepository;
 use App\Interfaces\IRolRepository;
 use App\Interfaces\IUserRepository;
 use App\Repository\PlanRepositoryImpl;
 use App\Repository\ProductRepositoryImpl;
+use App\Repository\ProspectRepositoryImpl;
 use App\Repository\RolRepositoryImpl;
 use App\Repository\UserRepositoryImpl;
 use Illuminate\Support\ServiceProvider;
@@ -20,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
         IRolRepository::class => RolRepositoryImpl::class,
         IPlanRepository::class => PlanRepositoryImpl::class,
         IProductRepository::class => ProductRepositoryImpl::class,
+        IProspectRepository::class => ProspectRepositoryImpl::class,
     ];
     /**
      * Register services.
