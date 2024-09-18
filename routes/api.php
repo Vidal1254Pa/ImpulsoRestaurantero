@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/refresh', [AuthController::class, 'refresh']);
 
+/* PROSPECT */
+Route::post('/prospect', [ProspectController::class, 'store']);
+
 Route::middleware('auth:api')->group(function () {
     Route::post('/user', [UserController::class, 'store']);
     Route::put('/user/{id:int}/plan', [PlanController::class, 'assignPlanToUser']);
@@ -26,7 +29,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/product', [ProductController::class, 'index']);
 
     /* PROSPECT */
-    Route::post('/prospect', [ProspectController::class, 'store']);
     Route::get('/prospect', [ProspectController::class, 'index']);
     Route::delete('/prospect/{id:int}', [ProspectController::class, 'destroy']);
 });
