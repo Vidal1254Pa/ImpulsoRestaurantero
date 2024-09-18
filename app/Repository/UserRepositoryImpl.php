@@ -21,7 +21,8 @@ class UserRepositoryImpl implements IUserRepository
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role_id' => $request->role_id
+            'role_id' => $request->role_id,
+            'created_by' => $request->created_by
         ]);
     }
 

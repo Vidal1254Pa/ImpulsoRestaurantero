@@ -10,12 +10,12 @@ class ProductsPlan extends Model
     use HasFactory;
     protected $table = 'products_plans';
     protected $primaryKey = null;
-    public $incrementing = false;
+    public $incrementing = true;
     public $timestamps = true;
 
     protected $fillable = [
         'product_id',
         'plan_id',
+        'user_id',
     ];
-    
 }

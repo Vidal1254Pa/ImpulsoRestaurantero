@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $table = 'products';
-    protected $primaryKey = 'id';
-    public $incrementing = true;
-    public $timestamps = true;
+    
+    
 
     protected $fillable = [
         'name',
         'description',
+        'user_id',
     ];
 
     protected $hidden = ['pivot'];

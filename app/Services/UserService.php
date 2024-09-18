@@ -27,6 +27,7 @@ class UserService
                 'role_id' => 'required'
             ])->validate();
             $this->_rolService->find($request->role_id);
+            $request->created_by = AuthCredentials::getCredentialsUserId();
             $this->_userRepository->create($request);
         } else {
             throw new AuthenticationException("No tienes permisos para realizar esta acción");

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 15, 2);
             $table->boolean('active')->default(true);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

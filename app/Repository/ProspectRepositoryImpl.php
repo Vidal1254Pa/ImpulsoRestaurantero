@@ -35,4 +35,9 @@ class ProspectRepositoryImpl implements IProspectRepository
     {
         return $this->_prospect->all();
     }
+
+    public function findByEmail(string $email):?Prospect
+    {
+        return $this->_prospect->where('email', $email)->first();
+    }
 }

@@ -30,6 +30,7 @@ class PlanService
                 'description' => 'required|string',
                 'price' => 'required|numeric',
             ])->validate();
+            $data['user_id'] = AuthCredentials::getCredentialsUserId();
             $this->_planRepository->create($data);
         } else {
             throw new AuthenticationException("No tienes permisos para realizar esta acción");
@@ -55,7 +56,7 @@ class PlanService
                 foreach ($uniqueIds as $productId) {
                     $this->_productService->find($productId);
                 }
-                $this->_planRepository->addProducts($id, $uniqueIds);
+                $this->_planRepository->addProducts($id, $uniqueIds, AuthCredentials::getCredentialsUserId());
             } catch (Exception $e) {
                 DB::rollBack();
                 if ($e instanceof NotFoundHttpException) {
@@ -89,7 +90,7 @@ class PlanService
             Validator::make($data, [
                 'plan_id' => 'required|integer',
             ])->validate();
-            $this->find($id);
+            $this->find($data['plan_id']);
             $this->_userService->assignPlan($id, $data['plan_id']);
         } else {
             throw new AuthenticationException("No tienes permisos para realizar esta acción");

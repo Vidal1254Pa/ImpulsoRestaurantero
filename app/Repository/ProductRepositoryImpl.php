@@ -29,6 +29,7 @@ class ProductRepositoryImpl implements IProductRepository
         return $this->_product->create([
             'name' => $data['name'],
             'description' => $data['description'],
+            'user_id' => $data['user_id'],
         ]);
     }
 

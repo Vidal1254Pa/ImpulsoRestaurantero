@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Interfaces\IProspectRepository;
+use App\Shared\StateAttention;
+use Exception;
 use Illuminate\Support\Facades\Validator;
 
 class ProspectService
@@ -25,9 +27,10 @@ class ProspectService
                 'company' => 'required|string',
                 'website' => 'required|string',
                 'message' => 'required|string',
-                'state_attention' => 'required|string',
             ]
         )->validate();
+        $prospect['state_attention'] = StateAttention::PENDING;
+        $this->findByEmail($prospect['email']);
         return $this->_prospectRepository->create($prospect);
     }
 
@@ -39,5 +42,13 @@ class ProspectService
     public function all()
     {
         return $this->_prospectRepository->all();
+    }
+
+    public function findByEmail(string $email)
+    {
+        $instance = $this->_prospectRepository->findByEmail($email);
+        if ($instance) {
+            throw new Exception("Prospect with email $email already exists");
+        }
     }
 }

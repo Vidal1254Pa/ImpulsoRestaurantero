@@ -23,6 +23,7 @@ class ProductService
                 'name' => 'required|string',
                 'description' => 'required|string',
             ])->validate();
+            $data['user_id'] = AuthCredentials::getCredentialsUserId();
             $this->_productRepository->create($data);
         } else {
             throw new AuthenticationException("No tienes permisos para realizar esta acción");

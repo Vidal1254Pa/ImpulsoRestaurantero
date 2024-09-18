@@ -38,6 +38,7 @@ class PlanRepositoryImpl implements IPlanRepository
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
+            'user_id' => $data['user_id'],
         ]);
     }
 
@@ -55,10 +56,10 @@ class PlanRepositoryImpl implements IPlanRepository
         return $this->_plan->find($id)->delete();
     }
 
-    public function addProducts(int $plan_id, array $product_ids)
+    public function addProducts(int $plan_id, array $product_ids, int $user_id)
     {
         $plan = $this->_plan->find($plan_id);
-        $plan->products()->attach($product_ids);
+        $plan->products()->attach($product_ids, ['user_id' => $user_id]);
     }
 
     public function removeProductsByPlanId(int $plan_id)
