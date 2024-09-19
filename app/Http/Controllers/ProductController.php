@@ -15,12 +15,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $this->_productService->create($data);
-        return response()->json(['message' => 'Product created successfully'], 201);
+        return $this->_productService->create($data);
     }
 
     public function index()
     {
-        return response()->json($this->_productService->all(), 200);
+        return $this->_productService->all();
     }
 }
