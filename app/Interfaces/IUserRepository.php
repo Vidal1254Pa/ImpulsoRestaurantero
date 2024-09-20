@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Models\Plan;
+use App\Models\Rol;
 use App\Models\User;
 use App\Models\UserPlan;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,6 +16,7 @@ interface IUserRepository
     public function all(): Collection;
     public function find($id): ?User;
     public function hasPlanByUserId($userId): bool;
+    public function getRolByUserId($userId): ?Rol;
     public function hasCompaniesByUserId($userId): bool;
     public function getCompaniesByUserId($userId): Collection;
     public function getPlanByUserId($userId): ?Plan;

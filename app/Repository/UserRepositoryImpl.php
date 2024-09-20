@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Interfaces\IUserRepository;
 use App\Models\Plan;
+use App\Models\Rol;
 use App\Models\User;
 use App\Models\UserPlan;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,10 +12,13 @@ use Illuminate\Database\Eloquent\Collection;
 class UserRepositoryImpl implements IUserRepository
 {
     private User $_userDb;
-    public function __construct(User $userDb)
+    private Rol $_rolDb;
+    public function __construct(User $userDb, Rol $rolDb)
     {
         $this->_userDb = $userDb;
+        $this->_rolDb = $rolDb;
     }
+
     public function create($request)
     {
         $this->_userDb->create([
@@ -56,6 +60,11 @@ class UserRepositoryImpl implements IUserRepository
     public function hasPlanByUserId($userId): bool
     {
         return $this->_userDb->find($userId)->plan()->exists();
+    }
+
+    public function getRolByUserId($userId): ?Rol
+    {
+        return $this->_rolDb->find($userId);
     }
 
     public function hasCompaniesByUserId($userId): bool

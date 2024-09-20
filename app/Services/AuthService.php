@@ -32,6 +32,9 @@ class AuthService
         $instanceUserDetail = [
             'email' => AuthCredentials::getCredentialsEmail(),
             'nombre' => AuthCredentials::getCredentialsUserName(),
+            'rol' => $this->_userRepository->getRolByUserId(
+                AuthCredentials::getCredentialsUserId()
+            )->name,
             'hasCompanies' => $this->_userRepository->hasCompaniesByUserId(
                 AuthCredentials::getCredentialsUserId()
             ),
