@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Interfaces\IPlanRepository;
 use App\Shared\AuthCredentials;
+use App\Shared\OnExecuteServiceAwaitResponse;
+use App\Shared\ResponsesGeneral;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +41,12 @@ class PlanService
 
     public function all()
     {
-        return $this->_planRepository->all();
+        return OnExecuteServiceAwaitResponse::success(
+            message: ResponsesGeneral::SUCCESS,
+            code: 200,
+            withOutMessage: true,
+            dataInjected: ['data' => $this->_planRepository->all()]
+        );
     }
     public function addProducts($id, array $data)
     {
@@ -92,8 +99,16 @@ class PlanService
             ])->validate();
             $this->find($data['plan_id']);
             $this->_userService->assignPlan($id, $data['plan_id']);
+            return OnExecuteServiceAwaitResponse::success(
+                message: ResponsesGeneral::SUCCESS,
+                code: 200,
+            );
         } else {
-            throw new AuthenticationException("No tienes permisos para realizar esta acción");
+            return OnExecuteServiceAwaitResponse::error(
+                message: "No tienes permisos para realizar esta acción",
+                code: 403,
+                error: 'Forbidden'
+            );
         }
     }
 }

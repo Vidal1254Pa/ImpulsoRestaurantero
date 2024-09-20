@@ -19,7 +19,8 @@ class AuthService
     }
 
     public function login($request)
-    {
+    {   
+        auth('api')->factory()->setTTL(1440); // 24 hours
         $credentials = $request->only('email', 'password');
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);

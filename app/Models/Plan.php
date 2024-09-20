@@ -18,7 +18,7 @@ class Plan extends Model
         'name',
         'description',
         'price',
-        'user_id',
+        'created_by',
     ];
 
     protected $hidden = ['pivot'];

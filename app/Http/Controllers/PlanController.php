@@ -22,7 +22,7 @@ class PlanController extends Controller
 
     public function index()
     {
-        return response()->json($this->_planService->all(), 200);
+        return $this->_planService->all();
     }
 
     public function addProducts(Request $request, $id)
@@ -40,7 +40,6 @@ class PlanController extends Controller
     public function assignPlanToUser(Request $request, $id)
     {
         $data = $request->all();
-        $this->_planService->assignPlanToUser($id, $data);
-        return response()->json(['message' => 'Plan assigned to user successfully'], 200);
+        return $this->_planService->assignPlanToUser($id, $data);
     }
 }

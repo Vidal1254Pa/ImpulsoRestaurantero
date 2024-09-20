@@ -13,10 +13,12 @@ class UserRepositoryImpl implements IUserRepository
 {
     private User $_userDb;
     private Rol $_rolDb;
-    public function __construct(User $userDb, Rol $rolDb)
+    private UserPlan $_userPlanDb;
+    public function __construct(User $userDb, Rol $rolDb, UserPlan $userPlanDb)
     {
         $this->_userDb = $userDb;
         $this->_rolDb = $rolDb;
+        $this->_userPlanDb = $userPlanDb;
     }
 
     public function create($request)
@@ -79,13 +81,16 @@ class UserRepositoryImpl implements IUserRepository
 
     public function getPlanByUserId($userId): ?Plan
     {
-        return $this->_userDb->find($userId)->plan;
+        return $this->_userDb->find($userId)->plan->first();
     }
 
     public function assignPlanToUser($userId, $planId)
     {
-        $instace = User::find($userId);
-        $instace->plan_id = $planId;
-        $instace->save();
+        $this->_userPlanDb->create([
+            'user_id' => $userId,
+            'plan_id' => $planId,
+            'start_date' => now(),
+            'end_date' => now()->addMonth(),
+        ]);
     }
 }

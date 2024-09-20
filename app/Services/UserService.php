@@ -6,6 +6,7 @@ use App\Interfaces\IUserRepository;
 use App\Shared\AuthCredentials;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserService
 {
@@ -33,9 +34,18 @@ class UserService
             throw new AuthenticationException("No tienes permisos para realizar esta acción");
         }
     }
+    public function find($id)
+    {
+        $instace = $this->_userRepository->find($id);
+        if ($instace === null) {
+            throw new NotFoundHttpException("Usuario no encontrado");
+        }
+        return $instace;
+    }
     public function assignPlan($userId, $planId)
     {
         if (AuthCredentials::userIsSuperAdmin()) {
+            $this->find($userId);
             $this->_userRepository->assignPlanToUser($userId, $planId);
         } else {
             throw new AuthenticationException("No tienes permisos para realizar esta acción");

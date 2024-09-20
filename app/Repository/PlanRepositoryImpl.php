@@ -38,7 +38,7 @@ class PlanRepositoryImpl implements IPlanRepository
             'name' => $data['name'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'user_id' => $data['user_id'],
+            'created_by' => $data['user_id'],
         ]);
     }
 

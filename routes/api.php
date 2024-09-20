@@ -14,6 +14,7 @@ Route::post('/refresh', [AuthController::class, 'refresh']);
 Route::post('/prospect', [ProspectController::class, 'store']);
 
 Route::middleware('auth:api')->group(function () {
+    
     Route::post('/user', [UserController::class, 'store']);
     Route::put('/user/{id:int}/plan', [PlanController::class, 'assignPlanToUser']);
 

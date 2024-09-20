@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class UserPlan extends Model
 {
     use HasFactory;
-    protected $table = 'company';
+    protected $table = 'user_plan';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = true;
-
-    protected $hidden = ['pivot'];
+    protected $fillable = [
+        'user_id',
+        'plan_id',
+        'start_date',
+        'end_date',
+    ];
 }
