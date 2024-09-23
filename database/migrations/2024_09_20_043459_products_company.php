@@ -13,19 +13,17 @@ return new class extends Migration
     {
         Schema::create('products_company', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('headquarters_company_id');
             $table->string('name');
             $table->string('description');
-            $table->decimal('price', 10, 2)->nullable();
+            $table->decimal('price', 10, 2);
+            $table->unsignedBigInteger('quantity');
+            $table->boolean('is_available')->default(true);
             $table->boolean('is_composed')->default(false);
-            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('category_id')->references('id')->on('category_products_company')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('product_id')->references('id')->on('products_company')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('headquarters_company_id')->references('id')->on('headquarters_company')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

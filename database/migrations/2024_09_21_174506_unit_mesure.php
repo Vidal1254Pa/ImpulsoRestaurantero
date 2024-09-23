@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_products_company', function (Blueprint $table) {
+        Schema::create('unit_mesure', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('headquarters_company_id');
-            $table->string('name');
             $table->string('description');
+            $table->unsignedBigInteger('category_unit_mesure_id');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('headquarters_company_id')->references('id')->on('headquarters_company')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('category_unit_mesure_id')->references('id')->on('category_unit_mesure')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_products_company');
+        Schema::dropIfExists('unit_mesure');
     }
 };

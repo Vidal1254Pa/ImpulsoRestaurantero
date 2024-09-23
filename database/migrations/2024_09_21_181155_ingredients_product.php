@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        /* Schema::create('inventory_movements_company', function (Blueprint $table) {
+        Schema::create('ingredients_product', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('headquarters_company_id');
+            $table->unsignedBigInteger('ingredient_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('quantity');
-            $table->enum('type', ['input', 'output']);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
+            $table->foreign('ingredient_id')->references('id')->on('ingredients')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('company_id')->references('id')->on('company')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('product_id')->references('id')->on('products_company')->cascadeOnDelete()->cascadeOnUpdate();
-        }); */
+            $table->foreign('headquarters_company_id')->references('id')->on('headquarters_company')->cascadeOnDelete()->cascadeOnUpdate();
+        });
     }
 
     /**
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventory_movements_company');
+        //
     }
 };
