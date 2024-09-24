@@ -34,7 +34,7 @@ class AuthService
             'email' => AuthCredentials::getCredentialsEmail(),
             'nombre' => AuthCredentials::getCredentialsUserName(),
             'rol' => $this->_userRepository->getRolByUserId(
-                AuthCredentials::getCredentialsUserId()
+                AuthCredentials::getCredentialsRole()
             )->name,
             'hasCompanies' => $this->_userRepository->hasCompaniesByUserId(
                 AuthCredentials::getCredentialsUserId()
