@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoryUnitMesure;
+use App\Models\UnitMesure;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +30,54 @@ class DatabaseSeeder extends Seeder
             'email' => 'patrick@gmail.com',
             'role_id' => 1,
             'password' => bcrypt('12345'),
+        ]);
+
+        CategoryUnitMesure::factory()->create([
+            'name' => 'Unidad',
+            'description' => 'Unidad de medida',
+            'created_by' => 1,
+        ]);
+
+        CategoryUnitMesure::factory()->create([
+            'name' => 'Kiloje',
+            'description' => 'Unidad de medida',
+            'created_by' => 1,
+        ]);
+
+        CategoryUnitMesure::factory()->create([
+            'name' => 'Liquidos',
+            'description' => 'Unidad de medida',
+            'created_by' => 1,
+        ]);
+
+        UnitMesure::factory()->create([
+            'description' => 'u.',
+            'category_unit_mesure_id' => 1,
+            'created_by' => 1,
+        ]);
+
+        UnitMesure::factory()->create([
+            'description' => 'gr.',
+            'category_unit_mesure_id' => 2,
+            'created_by' => 1,
+        ]);
+
+        UnitMesure::factory()->create([
+            'description' => 'Kg.',
+            'category_unit_mesure_id' => 2,
+            'created_by' => 1,
+        ]);
+
+        UnitMesure::factory()->create([
+            'description' => 'ml.',
+            'category_unit_mesure_id' => 3,
+            'created_by' => 1,
+        ]);
+
+        UnitMesure::factory()->create([
+            'description' => 'L.',
+            'category_unit_mesure_id' => 3,
+            'created_by' => 1,
         ]);
     }
 }
