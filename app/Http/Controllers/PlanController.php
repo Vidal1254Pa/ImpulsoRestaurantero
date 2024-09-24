@@ -25,16 +25,16 @@ class PlanController extends Controller
         return $this->_planService->all();
     }
 
-    public function addProducts(Request $request, $id)
+    public function addModules(Request $request, $id)
     {
         $data = $request->all();
         $this->_planService->addProducts($id, $data);
         return response()->json(['message' => 'Products added to plan successfully'], 200);
     }
 
-    public function getProductsByPlanId($id)
+    public function getModulesByPlanId($id)
     {
-        return response()->json($this->_planService->getProductsByPlanId($id), 200);
+        return response()->json($this->_planService->getModulesByPlanId($id), 200);
     }
 
     public function assignPlanToUser(Request $request, $id)

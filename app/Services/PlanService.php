@@ -15,12 +15,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PlanService
 {
     private IPlanRepository $_planRepository;
-    private ProductService $_productService;
+    private ModuleService $_moduleService;
     private UserService $_userService;
-    public function __construct(IPlanRepository $planRepository, ProductService $productService, UserService $userService)
+    public function __construct(IPlanRepository $planRepository, ModuleService $moduleService, UserService $userService)
     {
         $this->_planRepository = $planRepository;
-        $this->_productService = $productService;
+        $this->_moduleService = $moduleService;
         $this->_userService = $userService;
     }
 
@@ -58,12 +58,12 @@ class PlanService
                     'products' => 'required|array',
                     'products.*' => 'required|integer',
                 ])->validate();
-                $this->_planRepository->removeProductsByPlanId($id);
+                $this->_planRepository->removeModulesByPlanId($id);
                 $uniqueIds = array_unique($data['products']);
                 foreach ($uniqueIds as $productId) {
-                    $this->_productService->find($productId);
+                    $this->_moduleService->find($productId);
                 }
-                $this->_planRepository->addProducts($id, $uniqueIds, AuthCredentials::getCredentialsUserId());
+                $this->_planRepository->addModules($id, $uniqueIds, AuthCredentials::getCredentialsUserId());
             } catch (Exception $e) {
                 DB::rollBack();
                 if ($e instanceof NotFoundHttpException) {
@@ -85,10 +85,10 @@ class PlanService
         }
         return $instance;
     }
-    public function getProductsByPlanId($id)
+    public function getModulesByPlanId($id)
     {
         $this->find($id);
-        return $this->_planRepository->getProductsByPlanId($id);
+        return $this->_planRepository->getModulesByPlanId($id);
     }
 
     public function assignPlanToUser($id, array $data)

@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Interfaces\IPlanRepository;
+use App\Models\ModulesPlan;
 use App\Models\Plan;
-use App\Models\ProductsPlan;
 use Illuminate\Database\Eloquent\Collection;
 
 class PlanRepositoryImpl implements IPlanRepository
@@ -25,7 +25,7 @@ class PlanRepositoryImpl implements IPlanRepository
         return $this->_plan->find($id);
     }
 
-    public function getProductsByPlanId(int $plan_id): Collection
+    public function getModulesByPlanId(int $plan_id): Collection
     {
         return $this->_plan->find($plan_id)->select('id', 'name', 'description', 'price')->with(['products' => function ($query) {
             $query->select('id', 'name');
@@ -56,14 +56,14 @@ class PlanRepositoryImpl implements IPlanRepository
         return $this->_plan->find($id)->delete();
     }
 
-    public function addProducts(int $plan_id, array $product_ids, int $user_id)
+    public function addModules(int $plan_id, array $module_ids, int $user_id)
     {
         $plan = $this->_plan->find($plan_id);
-        $plan->products()->attach($product_ids, ['user_id' => $user_id]);
+        $plan->products()->attach($module_ids, ['user_id' => $user_id]);
     }
 
-    public function removeProductsByPlanId(int $plan_id)
+    public function removeModulesByPlanId(int $plan_id)
     {
-        ProductsPlan::where('plan_id', $plan_id)->delete();
+        ModulesPlan::where('plan_id', $plan_id)->delete();
     }
 }

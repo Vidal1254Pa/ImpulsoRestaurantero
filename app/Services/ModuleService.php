@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Interfaces\IModuleRepository;
 use App\Interfaces\IProductRepository;
 use App\Shared\AuthCredentials;
 use App\Shared\OnExecuteServiceAwaitResponse;
@@ -9,12 +10,12 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ProductService
+class ModuleService
 {
-    private IProductRepository $_productRepository;
-    public function __construct(IProductRepository $productRepository)
+    private IModuleRepository $_moduleRepository;
+    public function __construct(IModuleRepository $moduleRepository)
     {
-        $this->_productRepository = $productRepository;
+        $this->_moduleRepository = $moduleRepository;
     }
 
     public function create(array $data)
@@ -25,16 +26,16 @@ class ProductService
                 'description' => 'required|string',
             ])->validate();
             $data['user_id'] = AuthCredentials::getCredentialsUserId();
-            $instace = $this->_productRepository->create($data);
+            $instace = $this->_moduleRepository->create($data);
             if ($instace === null) {
                 return OnExecuteServiceAwaitResponse::error(
-                    message: "Error al crear el producto",
+                    message: "Error al crear el modulo",
                     code: 500,
                     error: 'Internal Server Error'
                 );
             } else {
                 return OnExecuteServiceAwaitResponse::success(
-                    message: "Producto creado correctamente",
+                    message: "Modulo creado correctamente",
                     code: 201,
                     dataInjected: ['id' => $instace->id]
                 );
@@ -51,7 +52,7 @@ class ProductService
     public function all()
     {
         return OnExecuteServiceAwaitResponse::success(
-            dataInjected: ['data' => $this->_productRepository->all()],
+            dataInjected: ['data' => $this->_moduleRepository->all()],
             withOutMessage: true,
             code: 200
         );
@@ -59,9 +60,9 @@ class ProductService
 
     public function find($id)
     {
-        $instance = $this->_productRepository->find($id);
+        $instance = $this->_moduleRepository->find($id);
         if ($instance === null) {
-            throw new NotFoundHttpException("Producto no encontrado con el id: $id");
+            throw new NotFoundHttpException("Modulo no encontrado con el id: $id");
         }
         return $instance;
     }

@@ -9,10 +9,10 @@ interface IPlanRepository
 {
     public function all(): Collection;
     public function find($id): ?Plan;
-    public function getProductsByPlanId(int $plan_id): Collection;
+    public function getModulesByPlanId(int $plan_id): Collection;
     public function create(array $data);
     public function update($id, array $data);
     public function delete($id);
-    public function addProducts(int $plan_id, array $product_ids,int $user_id);
-    public function removeProductsByPlanId(int $plan_id);
+    public function addModules(int $plan_id, array $product_ids,int $user_id);
+    public function removeModulesByPlanId(int $plan_id);
 }

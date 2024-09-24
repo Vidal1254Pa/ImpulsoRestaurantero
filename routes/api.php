@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProspectController;
@@ -22,12 +23,12 @@ Route::middleware('auth:api')->group(function () {
     /* PLANS */
     Route::post('/plan', [PlanController::class, 'store']);
     Route::get('/plan', [PlanController::class, 'index']);
-    Route::post('/plan/{id:int}/products', [PlanController::class, 'addProducts']);
-    Route::get('/plan/{id:int}/products', [PlanController::class, 'getProductsByPlanId']);
+    Route::post('/plan/{id:int}/modules', [PlanController::class, 'addModules']);
+    Route::get('/plan/{id:int}/modules', [PlanController::class, 'getModulesByPlanId']);
 
-    /* PRODUCTS */
-    Route::post('/product', [ProductController::class, 'store']);
-    Route::get('/product', [ProductController::class, 'index']);
+    /* Modules */
+    Route::post('/module', [ModuleController::class, 'store']);
+    Route::get('/module', [ModuleController::class, 'index']);
 
     /* PROSPECT */
     Route::get('/prospect', [ProspectController::class, 'index']);
