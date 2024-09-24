@@ -13,6 +13,6 @@ interface IPlanRepository
     public function create(array $data);
     public function update($id, array $data);
     public function delete($id);
-    public function addModules(int $plan_id, array $product_ids,int $user_id);
+    public function addModules(int $plan_id, array $module_ids,int $user_id);
     public function removeModulesByPlanId(int $plan_id);
 }

@@ -25,6 +25,6 @@ class Plan extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'products_plans', 'plan_id', 'product_id');
+        return $this->belongsToMany(Module::class, 'modules_plans', 'plan_id', 'module_id');
     }
 }

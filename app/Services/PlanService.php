@@ -48,18 +48,18 @@ class PlanService
             dataInjected: ['data' => $this->_planRepository->all()]
         );
     }
-    public function addProducts($id, array $data)
+    public function addModules($id, array $data)
     {
         if (AuthCredentials::userIsSuperAdmin()) {
             DB::beginTransaction();
             try {
                 $this->find($id);
                 Validator::make($data, [
-                    'products' => 'required|array',
-                    'products.*' => 'required|integer',
+                    'modules' => 'required|array',
+                    'modules.*' => 'required|integer',
                 ])->validate();
                 $this->_planRepository->removeModulesByPlanId($id);
-                $uniqueIds = array_unique($data['products']);
+                $uniqueIds = array_unique($data['modules']);
                 foreach ($uniqueIds as $productId) {
                     $this->_moduleService->find($productId);
                 }
@@ -69,7 +69,7 @@ class PlanService
                 if ($e instanceof NotFoundHttpException) {
                     throw $e;
                 }
-                throw new Exception('Error al agregar productos al plan');
+                throw new Exception('Error al agregar modulo al plan');
             }
             DB::commit();
         } else {
