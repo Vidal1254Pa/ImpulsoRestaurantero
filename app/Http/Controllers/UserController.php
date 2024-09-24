@@ -17,4 +17,10 @@ class UserController extends Controller
         $this->_userService->create($request);
         return response()->json(['message' => 'user created successfully']);
     }
+
+    public function test_create(Request $request)
+    {
+        $this->_userService->test_create($request);
+        return response()->json(['message' => 'user created successfully']);
+    }
 }

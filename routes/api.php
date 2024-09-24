@@ -14,6 +14,8 @@ Route::post('/refresh', [AuthController::class, 'refresh']);
 /* PROSPECT */
 Route::post('/prospect', [ProspectController::class, 'store']);
 
+Route::post('/test/user', [UserController::class, 'test_create']);
+
 Route::middleware('auth:api')->group(function () {
     
     Route::post('/user', [UserController::class, 'store']);
@@ -26,7 +28,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/plan/{id:int}/modules', [PlanController::class, 'addModules']);
     Route::get('/plan/{id:int}/modules', [PlanController::class, 'getModulesByPlanId']);
 
-    /* Modules */
+    /* MODULES */
     Route::post('/module', [ModuleController::class, 'store']);
     Route::get('/module', [ModuleController::class, 'index']);
 

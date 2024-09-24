@@ -18,6 +18,19 @@ class UserService
         $this->_rolService = $rolService;
     }
 
+    public function test_create($request)
+    {
+        Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'role_id' => 'required'
+        ])->validate();
+        $this->_rolService->find($request->role_id);
+        $request->created_by = 1;
+        $this->_userRepository->create($request);
+    }
+
     public function create($request)
     {
         if (AuthCredentials::userIsSuperAdmin()) {
