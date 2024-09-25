@@ -63,7 +63,7 @@ class ModuleService
     {
         $instance = $this->_moduleRepository->find($id);
         if ($instance === null) {
-            throw new NotFoundHttpException("Modulo no encontrado con el id: $id");
+            throw new NotFoundHttpException("Modulo no encontrado con el id: $id", null, 404);
         }
         return $instance;
     }

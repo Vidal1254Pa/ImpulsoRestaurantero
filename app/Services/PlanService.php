@@ -98,7 +98,7 @@ class PlanService
     {
         $instance = $this->_planRepository->find($id);
         if ($instance == null) {
-            throw new NotFoundHttpException("El plan no existe");
+            throw new NotFoundHttpException("El plan no existe", null, 404);
         }
         return $instance;
     }

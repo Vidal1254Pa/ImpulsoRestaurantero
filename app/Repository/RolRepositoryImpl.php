@@ -8,18 +8,18 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RolRepositoryImpl implements IRolRepository
 {
-    private Rol $_rolDb;
-    public function __construct(Rol $rolDb)
+    private Rol $_rol;
+    public function __construct(Rol $rol)
     {
-        $this->_rolDb = $rolDb;
+        $this->_rol = $rol;
     }
     public function all(): Collection
     {
-        return $this->_rolDb->all();
+        return $this->_rol->all();
     }
 
     public function find($id): ?Rol
     {
-        return $this->_rolDb->find($id);
+        return $this->_rol->find($id);
     }
 }

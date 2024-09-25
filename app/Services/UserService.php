@@ -63,7 +63,7 @@ class UserService
     {
         $instace = $this->_userRepository->find($id);
         if ($instace === null) {
-            throw new NotFoundHttpException("Usuario no encontrado");
+            throw new NotFoundHttpException("Usuario no encontrado",null,404);
         }
         return $instace;
     }

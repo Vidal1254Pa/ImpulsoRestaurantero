@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('logo')->nullable();
             $table->string('website')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

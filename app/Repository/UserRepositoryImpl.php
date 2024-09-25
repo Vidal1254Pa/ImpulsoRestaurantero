@@ -11,19 +11,19 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepositoryImpl implements IUserRepository
 {
-    private User $_userDb;
-    private Rol $_rolDb;
-    private UserPlan $_userPlanDb;
-    public function __construct(User $userDb, Rol $rolDb, UserPlan $userPlanDb)
+    private User $_user;
+    private Rol $_rol;
+    private UserPlan $_userPlan;
+    public function __construct(User $user, Rol $rol, UserPlan $userPlan)
     {
-        $this->_userDb = $userDb;
-        $this->_rolDb = $rolDb;
-        $this->_userPlanDb = $userPlanDb;
+        $this->_user = $user;
+        $this->_rol = $rol;
+        $this->_userPlan = $userPlan;
     }
 
     public function create($request)
     {
-        return $this->_userDb->create([
+        return $this->_user->create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -34,7 +34,7 @@ class UserRepositoryImpl implements IUserRepository
 
     public function update($request, $id)
     {
-        $user = $this->_userDb->find($id);
+        $user = $this->_user->find($id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -45,48 +45,48 @@ class UserRepositoryImpl implements IUserRepository
 
     public function delete($id)
     {
-        $user = $this->_userDb->find($id);
+        $user = $this->_user->find($id);
         $user->delete();
     }
 
     public function all(): Collection
     {
-        return $this->_userDb->all();
+        return $this->_user->all();
     }
 
     public function find($id): ?User
     {
-        return $this->_userDb->find($id);
+        return $this->_user->find($id);
     }
 
     public function hasPlanByUserId($userId): bool
     {
-        return $this->_userDb->find($userId)->plan()->exists();
+        return $this->_user->find($userId)->plan()->exists();
     }
 
     public function getRolByUserId($userId): ?Rol
     {
-        return $this->_rolDb->find($userId);
+        return $this->_rol->find($userId);
     }
 
     public function hasCompaniesByUserId($userId): bool
     {
-        return $this->_userDb->find($userId)->companies()->exists();
+        return $this->_user->find($userId)->companies()->exists();
     }
 
     public function getCompaniesByUserId($userId): Collection
     {
-        return $this->_userDb->find($userId)->companies;
+        return $this->_user->find($userId)->companies;
     }
 
     public function getPlanByUserId($userId): ?Plan
     {
-        return $this->_userDb->find($userId)->plan->first();
+        return $this->_user->find($userId)->plan->first();
     }
 
     public function assignPlanToUser($userId, $planId)
     {
-        $this->_userPlanDb->create([
+        $this->_userPlan->create([
             'user_id' => $userId,
             'plan_id' => $planId,
             'start_date' => now(),

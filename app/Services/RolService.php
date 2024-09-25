@@ -20,7 +20,7 @@ class RolService
     {
         $instance = $this->_rolRepository->find($id);
         if ($instance == null) {
-            throw new NotFoundHttpException("Rol no encontrado con el id: $id");
+            throw new NotFoundHttpException("Rol no encontrado con el id: $id", null, 404);
         }
         return $instance;
     }

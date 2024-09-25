@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class HeadquartersCompany extends Model
 {
     use HasFactory;
-    protected $table = 'company';
+    protected $table = 'headquarters_company';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = true;
 
     protected $fillable = [
+        'company_id',
         'name',
+        'address',
+        'phone',
         'email',
-        'logo',
-        'website',
-        'created_by',
+        'created_by'
     ];
-    protected $hidden = ['pivot'];
 }
