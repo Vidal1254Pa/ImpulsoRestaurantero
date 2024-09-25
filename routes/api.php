@@ -7,6 +7,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProspectController;
+use App\Http\Controllers\SuppliersCompanyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,4 +49,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/prospect', [ProspectController::class, 'store']);
     Route::get('/prospect', [ProspectController::class, 'index']);
     Route::delete('/prospect/{id:int}', [ProspectController::class, 'destroy']);
+
+    /* SUPPLIER */
+    Route::post('/company/{id:int}/supplier', [SuppliersCompanyController::class, 'store']);
+    Route::get('/supplier', [SuppliersCompanyController::class, 'index']);
+    Route::put('/supplier/{id:int}', [SuppliersCompanyController::class, 'update']);
+    Route::delete('/supplier/{id:int}', [SuppliersCompanyController::class, 'destroy']);
 });
