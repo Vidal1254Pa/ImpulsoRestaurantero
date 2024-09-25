@@ -23,7 +23,7 @@ class UserRepositoryImpl implements IUserRepository
 
     public function create($request)
     {
-        $this->_userDb->create([
+        return $this->_userDb->create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),

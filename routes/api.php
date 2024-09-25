@@ -33,6 +33,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/module', [ModuleController::class, 'index']);
 
     /* PROSPECT */
+    Route::post('/prospect', [ProspectController::class, 'store']);
     Route::get('/prospect', [ProspectController::class, 'index']);
     Route::delete('/prospect/{id:int}', [ProspectController::class, 'destroy']);
 });

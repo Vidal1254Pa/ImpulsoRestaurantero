@@ -4,8 +4,11 @@ namespace App\Services;
 
 use App\Interfaces\IUserRepository;
 use App\Shared\AuthCredentials;
+use App\Shared\OnExecuteServiceAwaitResponse;
+use App\Shared\ResponsesGeneral;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\Return_;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserService
@@ -42,9 +45,18 @@ class UserService
             ])->validate();
             $this->_rolService->find($request->role_id);
             $request->created_by = AuthCredentials::getCredentialsUserId();
-            $this->_userRepository->create($request);
+            $instance = $this->_userRepository->create($request);
+            return OnExecuteServiceAwaitResponse::success(
+                message: ResponsesGeneral::SUCCESS,
+                code: 201,
+                dataInjected: ['id' => $instance->id]
+            );
         } else {
-            throw new AuthenticationException("No tienes permisos para realizar esta acción");
+            return OnExecuteServiceAwaitResponse::error(
+                message: "No tienes permisos para realizar esta acción",
+                code: 403,
+                error: 'Forbidden'
+            );
         }
     }
     public function find($id)

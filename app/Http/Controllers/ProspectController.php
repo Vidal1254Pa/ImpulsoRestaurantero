@@ -14,18 +14,16 @@ class ProspectController extends Controller
     }
     public function store(Request $request)
     {
-        $this->_prospectRepository->create($request->all());
-        return response()->json(['message' => 'Prospect created successfully']);
+        return $this->_prospectRepository->create($request->all());
     }
 
     public function index()
     {
-        return response()->json($this->_prospectRepository->all());
+        return $this->_prospectRepository->all();
     }
 
     public function destroy(int $id)
     {
-        $this->_prospectRepository->delete($id);
-        return response()->json(['message' => 'Prospect deleted successfully']);
+        return $this->_prospectRepository->delete($id);
     }
 }

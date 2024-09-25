@@ -16,8 +16,7 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $this->_planService->create($data);
-        return response()->json(['message' => 'Plan created successfully'], 201);
+        return $this->_planService->create($data);
     }
 
     public function index()
@@ -28,13 +27,12 @@ class PlanController extends Controller
     public function addModules(Request $request, $id)
     {
         $data = $request->all();
-        $this->_planService->addModules($id, $data);
-        return response()->json(['message' => 'Modules added to plan successfully'], 200);
+        return $this->_planService->addModules($id, $data);
     }
 
     public function getModulesByPlanId($id)
     {
-        return response()->json($this->_planService->getModulesByPlanId($id), 200);
+        return $this->_planService->getModulesByPlanId($id);
     }
 
     public function assignPlanToUser(Request $request, $id)

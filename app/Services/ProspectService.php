@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\IProspectRepository;
+use App\Shared\OnExecuteServiceAwaitResponse;
 use App\Shared\StateAttention;
 use Exception;
 use Illuminate\Support\Facades\Validator;
@@ -31,17 +32,28 @@ class ProspectService
         )->validate();
         $prospect['state_attention'] = StateAttention::PENDING;
         $this->findByEmail($prospect['email']);
-        return $this->_prospectRepository->create($prospect);
+        $instance = $this->_prospectRepository->create($prospect);
+        return OnExecuteServiceAwaitResponse::success(
+            code: 201,
+            dataInjected: ['id' => $instance->id]
+        );
     }
 
     public function delete(int $id)
     {
-        return $this->_prospectRepository->delete($id);
+        $this->_prospectRepository->delete($id);
+        return OnExecuteServiceAwaitResponse::success(
+            code: 200,
+        );
     }
 
     public function all()
     {
-        return $this->_prospectRepository->all();
+        return OnExecuteServiceAwaitResponse::success(
+            dataInjected: ['data' => $this->_prospectRepository->all()],
+            withOutMessage: true,
+            code: 200
+        );
     }
 
     public function findByEmail(string $email)

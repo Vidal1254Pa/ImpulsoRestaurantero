@@ -33,9 +33,18 @@ class PlanService
                 'price' => 'required|numeric',
             ])->validate();
             $data['user_id'] = AuthCredentials::getCredentialsUserId();
-            $this->_planRepository->create($data);
+            $instance = $this->_planRepository->create($data);
+            return OnExecuteServiceAwaitResponse::success(
+                message: ResponsesGeneral::SUCCESS,
+                code: 201,
+                dataInjected: ['id' => $instance->id]
+            );
         } else {
-            throw new AuthenticationException("No tienes permisos para realizar esta acción");
+            return OnExecuteServiceAwaitResponse::error(
+                message: "No tienes permisos para realizar esta acción",
+                code: 403,
+                error: 'Forbidden'
+            );
         }
     }
 
@@ -72,8 +81,16 @@ class PlanService
                 throw new Exception('Error al agregar modulo al plan');
             }
             DB::commit();
+            return OnExecuteServiceAwaitResponse::success(
+                message: ResponsesGeneral::SUCCESS,
+                code: 200,
+            );
         } else {
-            throw new AuthenticationException("No tienes permisos para realizar esta acción");
+            return OnExecuteServiceAwaitResponse::error(
+                message: "No tienes permisos para realizar esta acción",
+                code: 403,
+                error: 'Forbidden'
+            );
         }
     }
 
@@ -88,7 +105,13 @@ class PlanService
     public function getModulesByPlanId($id)
     {
         $this->find($id);
-        return $this->_planRepository->getModulesByPlanId($id);
+        $instance = $this->_planRepository->getModulesByPlanId($id);
+        return OnExecuteServiceAwaitResponse::success(
+            message: ResponsesGeneral::SUCCESS,
+            code: 200,
+            withOutMessage: true,
+            dataInjected: ['data' => $instance]
+        );
     }
 
     public function assignPlanToUser($id, array $data)

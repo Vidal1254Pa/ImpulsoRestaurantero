@@ -6,6 +6,7 @@ use App\Interfaces\IModuleRepository;
 use App\Interfaces\IProductRepository;
 use App\Shared\AuthCredentials;
 use App\Shared\OnExecuteServiceAwaitResponse;
+use App\Shared\ResponsesGeneral;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -35,7 +36,7 @@ class ModuleService
                 );
             } else {
                 return OnExecuteServiceAwaitResponse::success(
-                    message: "Modulo creado correctamente",
+                    message: ResponsesGeneral::SUCCESS,
                     code: 201,
                     dataInjected: ['id' => $instace->id]
                 );
