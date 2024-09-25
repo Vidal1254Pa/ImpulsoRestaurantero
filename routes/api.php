@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryProductsCompanyController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HeadquarterController;
 use App\Http\Controllers\ModuleController;
@@ -55,4 +56,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/supplier', [SuppliersCompanyController::class, 'index']);
     Route::put('/supplier/{id:int}', [SuppliersCompanyController::class, 'update']);
     Route::delete('/supplier/{id:int}', [SuppliersCompanyController::class, 'destroy']);
+
+    /* CATEGORY PRODUCTS COMPANY */
+    Route::post('/headquarter/{id:int}/category', [CategoryProductsCompanyController::class, 'store']);
+    Route::get('/headquarter/{id:int}/category', [CategoryProductsCompanyController::class, 'index']);
+    Route::put('/category/{id:int}', [CategoryProductsCompanyController::class, 'update']);
+    Route::delete('/category/{id:int}', [CategoryProductsCompanyController::class, 'destroy']);
 });
