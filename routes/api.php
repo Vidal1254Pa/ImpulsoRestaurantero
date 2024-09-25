@@ -22,13 +22,16 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/user', [UserController::class, 'store']);
     Route::put('/user/{id:int}/plan', [PlanController::class, 'assignPlanToUser']);
-    Route::post('/user/{id:int}/headquarters', [HeadquarterController::class, 'addUser']);
 
     /* COMPANY */
     Route::post('/company', [CompanyController::class, 'store']);
     Route::get('/company', [CompanyController::class, 'index']);
     Route::put('/company/{id:int}', [CompanyController::class, 'update']);
     Route::delete('/company/{id:int}', [CompanyController::class, 'destroy']);
+
+    /* HEADQUARTER_COMPANY */
+    Route::post('/company/{id:int}/headquarter', [HeadquarterController::class, 'store']);
+    Route::post('/headquarters/{head_id:int}/user/{user_id:int}', [HeadquarterController::class, 'addUser']);
 
 
     /* PLANS */

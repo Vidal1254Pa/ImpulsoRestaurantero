@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class UserHeadquarters extends Model
 {
     use HasFactory;
+
+    protected $table = 'user_headquarters';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    public $timestamps = true;
+
+    protected $fillable = [
+        'user_id',
+        'headquarters_id',
+        'created_by'
+    ];
 }

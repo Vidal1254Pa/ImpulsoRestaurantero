@@ -24,9 +24,21 @@ class HeadquarterRepositoryImpl implements IHeadquarterRepository
             'phone' => $data['phone'],
             'email' => $data['email'],
             'company_id' => $company_id,
-            'created_by' => $data['user_id'],
+            'created_by' => $data['created_by'],
         ]);
     }
 
-    public function addUser() {}
+    public function find($id): ?HeadquartersCompany
+    {
+        return $this->_headquarter_company->find($id);
+    }
+
+    public function addUser($head_id, $user_id, $created_by)
+    {
+        return $this->_user_headquarter->create([
+            'headquarters_id' => $head_id,
+            'user_id' => $user_id,
+            'created_by' => $created_by,
+        ]);
+    }
 }
